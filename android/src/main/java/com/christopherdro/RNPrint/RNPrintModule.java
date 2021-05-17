@@ -115,8 +115,12 @@ public class RNPrintModule extends ReactContextBaseJavaModule {
                                         promise.resolve(jobName);
                                     }
                                 };
+
+                                PrintAttributes printAttributes = new PrintAttributes.Builder()
+                                          .setMediaSize(isLandscape?PrintAttributes.MediaSize.ISO_A4.asLandscape():PPrintAttributes.MediaSize.ISO_A4.asPortrait())
+                                        .build();
                                 // Pass in the ViewView's document adapter.
-                                printManager.print(jobName, adapter, null);
+                                printManager.print(jobName, adapter, printAttributes);
                                 mWebView = null;
                             }
                         });
@@ -201,7 +205,7 @@ public class RNPrintModule extends ReactContextBaseJavaModule {
                 };
 
                 PrintAttributes printAttributes = new PrintAttributes.Builder()
-                        .setMediaSize(isLandscape?PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE:PrintAttributes.MediaSize.UNKNOWN_PORTRAIT)
+                          .setMediaSize(isLandscape?PrintAttributes.MediaSize.ISO_A4.asLandscape():PPrintAttributes.MediaSize.ISO_A4.asPortrait())
                         .build();
                 printManager.print(jobName, pda, printAttributes);
 
